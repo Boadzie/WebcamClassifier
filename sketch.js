@@ -1,31 +1,38 @@
-
-let classifier;
+let mobilenet;
 let video;
-
-function setup() {
-  noCanvas();
-  // Create a camera input
-  video = createCapture(VIDEO);
-  // Initialize the Image Classifier method with MobileNet and the video as the second argument
-  classifier = ml5.imageClassifier('MobileNet', video, modelReady);  
-}
+let label = '';
 
 function modelReady() {
-  // Change the status of the model once its ready
-  select('#status').html('Model Loaded');
-  // Call the classifyVideo function to start classifying the video
-  classifyVideo();
+  console.log('Model is ready!!!');
+  mobilenet.predict(gotResults);
 }
 
-// Get a prediction for the current video frame
-function classifyVideo() {
-  classifier.predict(gotResult);
+function gotResults(error, results) {
+  if (error) {
+    console.error(error);
+  } else {
+    //console.log(results);
+    label = results[0].className;
+    mobilenet.predict(gotResults);
+  }
 }
 
-// When we get a result
-function gotResult(err, results) {
-  // The results are in an array ordered by probability.
-  select('#result').html(results[0].className);
-  select('#probability').html(nf(results[0].probability, 0, 2));
-  classifyVideo();
+// function imageReady() {
+//   image(puffin, 0, 0, width, height);
+// }
+
+function setup() {
+  createCanvas(640, 550);
+  video = createCapture(VIDEO);
+  video.hide();
+  background(0);
+  mobilenet = ml5.imageClassifier('MobileNet', video, modelReady);
+}
+
+function draw() {
+  background(0);
+  image(video, 0, 0);
+  fill(255);
+  textSize(32);
+  text(label, 10, height - 20);
 }
