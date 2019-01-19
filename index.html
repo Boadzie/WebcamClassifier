@@ -15,12 +15,12 @@
 
 </head>
 
-<body class="container">
+<body class="container is-mobile">
     <section class=" columns is-12 has-background-dark has-text-centered hast-text-white is-bold">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title has-text-white">
-                    Webcam Image Classification using MobileNet, ML-5 and P-5
+                    Webcam Image Classification using MobileNet, ml5.js and p5.js
                 </h1>
             </div>
         </div>
@@ -37,10 +37,17 @@
                 <a href="https://www.facebook.com/profile.php?id=100006259099181"><i class="fab fa-facebook"></i></a>
             </h3>
         </div>
-        <div class="column level-right">
+        <div class="column is-4 level-right" style="height:-1rem;">
             <script src="sketch.js"></script>
+            <div class="column is-12">
+                <p class="subtitle" id='status'>Loading Model...</p>
+                <p class="subtitle">
+                    The MobileNet model labeled this as <span id="result">...</span>
+                    <br />with a confidence of <span id="probability">...</span>.
+                </p>
+            </div>
         </div>
-        <br/><br style="margin-bottom:30rem;"/>
+        <br /><br style="margin-bottom:30rem;" />
     </div>
 </body>
 
